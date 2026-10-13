@@ -1,69 +1,50 @@
-import Image from "next/image";
+import Link from "next/link";
+import StorefrontNavbar from "@/components/storefront/StorefrontNavbar";
 import styles from "./page.module.css";
+
+const categories = [
+  { label: "Beans", icon: "🫘" },
+  { label: "Fruits", icon: "🍓" },
+  { label: "Leaves", icon: "🥬" },
+  { label: "Roots", icon: "🥕" },
+  { label: "Tuber", icon: "🥔" },
+];
 
 export default function Home() {
   return (
-    <div className={styles.page}>
-      <main className={styles.main}>
-        <Image
-          className={styles.logo}
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className={styles.intro}>
-          <h1>
-            To get started, edit the{" "}
-            <code className={styles.code}>page.tsx</code> file.
+    <main className={styles.page}>
+      <StorefrontNavbar />
+
+      <section className={styles.hero} aria-labelledby="hero-title">
+        <div className={styles.heroCopy}>
+          <p className={styles.eyebrow}>Ttangk e ut Harvest</p>
+          <h1 id="hero-title">
+            From our fields to your doorstep—
+            <span>freshness you can track.</span>
           </h1>
-          <p>
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
+          <p className={styles.tags}>#FarmToTable #SustainableSourcing #FreshProduce</p>
+          <Link className={styles.shopButton} href="/products">
+            ▣&nbsp; Shop Now
+          </Link>
         </div>
-        <div className={styles.ctas}>
-          <a
-            className={styles.primary}
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className={styles.logo}
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={14}
-            />
-            Deploy Now
-          </a>
-          <a
-            className={styles.secondary}
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
+        <div className={styles.heroFarmer} aria-hidden="true">
+          <span>👩🏻‍🌾</span>
         </div>
-      </main>
-    </div>
+        <div className={styles.sliderDots} aria-label="Slide 1 of 3">
+          <span className={styles.activeDot} />
+          <span />
+          <span />
+        </div>
+      </section>
+
+      <section className={styles.categories} aria-label="Shop by category">
+        {categories.map((category) => (
+          <Link className={styles.category} href="/products" key={category.label}>
+            <span className={styles.categoryIcon}>{category.icon}</span>
+            <strong>{category.label}</strong>
+          </Link>
+        ))}
+      </section>
+    </main>
   );
 }

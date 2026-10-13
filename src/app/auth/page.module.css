@@ -1,0 +1,301 @@
+.page {
+  display: flex;
+  min-height: 100vh;
+  align-items: center;
+  justify-content: center;
+  padding: 32px 16px;
+  background-color: #f3f4f6; /* light gray background */
+}
+
+.loadingPage {
+  display: grid;
+  min-height: 100vh;
+  place-items: center;
+  background-color: #f3f4f6;
+}
+
+.loadingIndicator {
+  width: 34px;
+  height: 34px;
+  border: 3px solid #dce4eb;
+  border-top-color: var(--primary-color, #64748b);
+  border-radius: 50%;
+  animation: loadingSpin 0.8s linear infinite;
+}
+
+.card {
+  position: relative;
+  width: min(100%, 900px);
+  min-height: 550px;
+  background: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+  overflow: hidden;
+  animation: authFadeIn 0.7s ease-out both;
+}
+
+.leftPanel, .rightPanel {
+  position: absolute;
+  top: 0;
+  width: 50%;
+  height: 100%;
+  transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.leftPanel {
+  left: 0;
+  background: linear-gradient(135deg, var(--secondary-color), color-mix(in srgb, var(--secondary-color) 80%, #fff), var(--secondary-color));
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 40px;
+  color: white;
+  text-align: center;
+  z-index: 2;
+}
+
+.rightPanel {
+  left: 50%;
+  background: #ffffff;
+  padding: 60px 50px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  z-index: 1;
+}
+
+.cardReverse .leftPanel {
+  transform: translateX(100%);
+}
+
+.cardReverse .rightPanel {
+  transform: translateX(-100%);
+}
+
+.logoContainer {
+  margin-bottom: 24px;
+}
+
+.logoImage {
+  display: block;
+  width: 90px;
+  height: 90px;
+  border: 3px solid rgb(255 255 255 / 70%);
+  border-radius: 50%;
+  padding: 8px;
+  background: #fff;
+  object-fit: contain;
+  box-shadow: 0 10px 20px rgb(0 0 0 / 30%);
+}
+
+.brandTitle {
+  margin: 0 0 8px;
+  color: inherit;
+  font-size: 30px;
+  font-weight: 800;
+  letter-spacing: -0.5px;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  animation: authFadeIn 0.7s ease-out both;
+}
+
+.brandSubtitle {
+  font-size: 16px;
+  font-weight: 600;
+  margin: 8px 0 24px;
+  color: #d1c9e8;
+}
+
+.brandDescription {
+  font-size: 14px;
+  color: #b0a5d4;
+  line-height: 1.6;
+  max-width: 80%;
+}
+
+.formHeader {
+  margin-bottom: 30px;
+}
+
+.formHeader h2 {
+  font-size: 28px;
+  font-weight: 800;
+  color: #111827;
+  margin: 0 0 8px;
+}
+
+.formHeader p {
+  color: #6b7280;
+  font-size: 14px;
+  margin: 0;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+}
+
+.form label {
+  margin: 0 0 6px;
+  color: #374151;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.form input {
+  margin-bottom: 20px;
+  border: 1px solid transparent;
+  border-radius: 8px;
+  padding: 14px 16px;
+  color: #111827;
+  background: #eff4fe;
+  font: inherit;
+  font-size: 14px;
+  transition: all 0.2s;
+}
+
+.form input:focus {
+  outline: none;
+  border-color: var(--primary-color);
+  background: #ffffff;
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--primary-color) 15%, transparent);
+}
+
+.error,
+.message {
+  margin: -5px 0 20px;
+  border-radius: 8px;
+  padding: 12px;
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+.error {
+  color: #b91c1c;
+  background: #fef2f2;
+}
+
+.message {
+  color: #15803d;
+  background: #f0fdf4;
+}
+
+.submit {
+  border: 0;
+  border-radius: 8px;
+  padding: 14px;
+  color: #ffffff;
+  background: var(--primary-color);
+  font: inherit;
+  font-size: 15px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.2s;
+  margin-top: 10px;
+}
+
+.submit:hover {
+  background: color-mix(in srgb, var(--primary-color) 85%, #000);
+}
+
+.submit:disabled {
+  cursor: wait;
+  opacity: 0.7;
+}
+
+.toggleText {
+  margin-top: 24px;
+  text-align: center;
+  font-size: 13px;
+  color: #6b7280;
+}
+
+.toggleLink {
+  background: none;
+  border: none;
+  padding: 0;
+  color: var(--primary-color);
+  font-weight: 700;
+  font-size: 13px;
+  cursor: pointer;
+}
+
+.toggleLink:hover {
+  text-decoration: underline;
+}
+
+@keyframes formFadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes authFadeIn {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes loadingSpin {
+  to { transform: rotate(360deg); }
+}
+
+@media (max-width: 768px) {
+  .page {
+    padding: 16px;
+  }
+
+  .card {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    max-width: 100%;
+    min-height: auto;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+  }
+  
+  .cardReverse {
+    flex-direction: column;
+  }
+  
+  .leftPanel, .rightPanel {
+    position: relative;
+    width: 100%;
+    height: auto;
+    left: auto;
+    top: auto;
+    transform: none !important;
+    transition: opacity 0.4s ease-in-out;
+  }
+  
+  .leftPanel {
+    padding: 32px 24px 16px;
+    background: transparent;
+    color: #111827;
+  }
+  
+  .logoContainer {
+    margin-bottom: 16px;
+  }
+  
+  .brandSubtitle, .brandDescription {
+    display: none;
+  }
+
+  .brandTitle {
+    font-size: 24px;
+    color: #111827;
+    text-shadow: none;
+  }
+  
+  .rightPanel {
+    padding: 16px 24px 40px;
+  }
+
+  .formHeader {
+    text-align: center;
+    margin-bottom: 24px;
+  }
+
+  .form {
+    animation: formFadeIn 0.4s ease-in-out;
+  }
+}
