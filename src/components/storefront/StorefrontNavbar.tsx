@@ -169,7 +169,21 @@ export default function StorefrontNavbar() {
         document.head.appendChild(link);
       }
       link.href = settings.logoUrl;
+      document.querySelectorAll<HTMLLinkElement>("link[rel~='icon']").forEach((icon) => {
+        if (icon.href !== settings.logoUrl) icon.href = settings.logoUrl;
+      });
     }
+    const observer = new MutationObserver(() => {
+      if (settings.logoUrl) {
+        const trackedLink = document.querySelector<HTMLLinkElement>("link#app-favicon");
+        if (trackedLink && trackedLink.href !== settings.logoUrl) trackedLink.href = settings.logoUrl;
+        document.querySelectorAll<HTMLLinkElement>("link[rel~='icon']").forEach((icon) => {
+          if (icon.href !== settings.logoUrl) icon.href = settings.logoUrl;
+        });
+      }
+    });
+    observer.observe(document.head, { childList: true, subtree: true });
+    return () => observer.disconnect();
   }, [settings.siteName, settings.logoUrl]);
 
   return (
@@ -407,28 +421,12 @@ export default function StorefrontNavbar() {
         </div>
 
         <div className={styles.navRight}>
-          <div className={styles.translateBox}>
-            <div className={styles.translateSelectWrapper}>
-              <select className={styles.translateSelect} aria-label="Select language" defaultValue="tl">
-                <option value="tl">Pumili ng Wika</option>
-                <option value="ko">한국어 (Korean)</option>
-                <option value="en">English</option>
-                <option value="ja">日本語</option>
-              </select>
-            </div>
-            <div className={styles.translateFooter} aria-hidden="true">
-              <span>Pinapagana ng </span>
-              <span className={styles.googleText}>Google</span>
-              <span> Isalin</span>
-            </div>
-          </div>
-
-          <a href="tel:010-9381-2594" className={styles.phoneButton}>
+          {settings.contactNumber && <a href={`tel:${settings.contactNumber}`} className={styles.phoneButton}>
             <span className={styles.phoneIcon} aria-hidden="true">
               📞
             </span>
-            <span>010-9381-2594</span>
-          </a>
+            <span>{settings.contactNumber}</span>
+          </a>}
         </div>
       </nav>
     </div>

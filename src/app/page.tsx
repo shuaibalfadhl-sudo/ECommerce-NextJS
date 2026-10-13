@@ -1,5 +1,7 @@
 import Link from "next/link";
 import StorefrontNavbar from "@/components/storefront/StorefrontNavbar";
+import StorefrontFooter from "@/components/storefront/StorefrontFooter";
+import HeroCarousel from "@/components/storefront/HeroCarousel";
 import styles from "./page.module.css";
 
 const categories = [
@@ -15,27 +17,7 @@ export default function Home() {
     <main className={styles.page}>
       <StorefrontNavbar />
 
-      <section className={styles.hero} aria-labelledby="hero-title">
-        <div className={styles.heroCopy}>
-          <p className={styles.eyebrow}>Ttangk e ut Harvest</p>
-          <h1 id="hero-title">
-            From our fields to your doorstep—
-            <span>freshness you can track.</span>
-          </h1>
-          <p className={styles.tags}>#FarmToTable #SustainableSourcing #FreshProduce</p>
-          <Link className={styles.shopButton} href="/products">
-            ▣&nbsp; Shop Now
-          </Link>
-        </div>
-        <div className={styles.heroFarmer} aria-hidden="true">
-          <span>👩🏻‍🌾</span>
-        </div>
-        <div className={styles.sliderDots} aria-label="Slide 1 of 3">
-          <span className={styles.activeDot} />
-          <span />
-          <span />
-        </div>
-      </section>
+      <HeroCarousel />
 
       <section className={styles.categories} aria-label="Shop by category">
         {categories.map((category) => (
@@ -45,6 +27,8 @@ export default function Home() {
           </Link>
         ))}
       </section>
+
+      <StorefrontFooter />
     </main>
   );
 }

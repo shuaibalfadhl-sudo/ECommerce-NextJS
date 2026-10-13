@@ -1,0 +1,346 @@
+/* =========================================================
+   HERO CAROUSEL - EDITORIAL PRODUCE BANNER
+   Designed to match the reference banner:
+   - Warm cream background on the left with editorial serif typography
+   - Seamless gradient blend into the high-res right-aligned produce image
+   - Colors dynamically powered by system settings (--primary, --secondary)
+   - Minimalist thin chevron navigation and capsule pill indicator
+   ========================================================= */
+
+.skeleton {
+  min-height: 400px;
+  margin: 14px 1.2% 0;
+  border-radius: 14px;
+  background: linear-gradient(
+    90deg,
+    color-mix(in srgb, var(--primary, #2d6a4f) 6%, #faf7f2) 25%,
+    color-mix(in srgb, var(--primary, #2d6a4f) 3%, #ffffff) 50%,
+    color-mix(in srgb, var(--primary, #2d6a4f) 6%, #faf7f2) 75%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 1.6s infinite ease-in-out;
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
+
+.carousel {
+  position: relative;
+  min-height: 400px;
+  margin: 14px 1.2% 0;
+  border-radius: 14px;
+  overflow: hidden;
+  background-color: var(--carousel-bg, color-mix(in srgb, var(--primary) 7%, #fcfbf7));
+  user-select: none;
+}
+
+.track {
+  position: relative;
+  width: 100%;
+  min-height: 400px;
+}
+
+.slide {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transform: translate3d(10px, 0, 0) scale(0.992);
+  transition:
+    opacity 1s cubic-bezier(0.4, 0, 0.2, 1),
+    transform 1s cubic-bezier(0.22, 1, 0.36, 1),
+    visibility 0s linear 1s;
+  display: flex;
+  align-items: center;
+  background-color: var(--carousel-bg, color-mix(in srgb, var(--primary) 7%, #fcfbf7));
+}
+
+.slideActive {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+  position: relative;
+  min-height: 400px;
+  transform: translate3d(0, 0, 0) scale(1);
+  transition-delay: 0s;
+}
+
+.slide .content {
+  opacity: 0;
+  transform: translate3d(0, 12px, 0);
+  transition:
+    opacity 0.72s cubic-bezier(0.4, 0, 0.2, 1) 0.14s,
+    transform 0.82s cubic-bezier(0.22, 1, 0.36, 1) 0.14s;
+}
+
+.slideActive .content {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.slide .imageWrapper {
+  opacity: 0;
+  transform: scale(1.035);
+  transition:
+    opacity 1.05s cubic-bezier(0.4, 0, 0.2, 1),
+    transform 1.35s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.slideActive .imageWrapper {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.slide .imageOverlay {
+  opacity: 0;
+  transition: opacity 1.05s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.slideActive .imageOverlay {
+  opacity: 1;
+}
+
+/* Left Content Area */
+.content {
+  position: relative;
+  z-index: 5;
+  width: 48%;
+  padding: 48px 24px 48px 64px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+.title {
+  margin: 0 0 16px 0;
+  font-family: Georgia, "Times New Roman", Garamond, serif;
+  font-size: clamp(28px, 3.2vw, 44px);
+  font-weight: 700;
+  line-height: 1.16;
+  color: var(--secondary, #1b3824);
+  letter-spacing: -0.4px;
+}
+
+.subtitle {
+  margin: 0 0 24px 0;
+  font-family: inherit;
+  font-size: clamp(13px, 1.1vw, 14.5px);
+  line-height: 1.55;
+  color: #434c46;
+  max-width: 410px;
+}
+
+.cta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10.5px 26px;
+  border-radius: 9999px;
+  background-color: var(--primary, #276738);
+  color: #ffffff;
+  font-size: 13.5px;
+  font-weight: 600;
+  text-decoration: none;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
+  transition: background-color 0.18s ease, transform 0.18s ease;
+}
+
+.cta:hover {
+  background-color: var(--secondary, #1b3824);
+  transform: translateY(-1px);
+}
+
+.cta:active {
+  transform: translateY(0);
+}
+
+/* Right Image with Seamless Left Edge Fade */
+.imageWrapper {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 66%;
+  height: 100%;
+  overflow: hidden;
+  z-index: 2;
+  -webkit-mask-image: linear-gradient(
+    to right,
+    transparent 0%,
+    rgba(0, 0, 0, 0.3) 14%,
+    rgba(0, 0, 0, 0.85) 28%,
+    #000000 42%,
+    #000000 100%
+  );
+  mask-image: linear-gradient(
+    to right,
+    transparent 0%,
+    rgba(0, 0, 0, 0.3) 14%,
+    rgba(0, 0, 0, 0.85) 28%,
+    #000000 42%,
+    #000000 100%
+  );
+}
+
+.slideImage {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center right;
+  display: block;
+}
+
+.imageOverlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to right,
+    var(--carousel-bg, color-mix(in srgb, var(--primary) 7%, #fcfbf7)) 0%,
+    color-mix(in srgb, var(--carousel-bg, color-mix(in srgb, var(--primary) 7%, #fcfbf7)) 82%, transparent) 14%,
+    color-mix(in srgb, var(--carousel-bg, color-mix(in srgb, var(--primary) 7%, #fcfbf7)) 35%, transparent) 28%,
+    transparent 45%
+  );
+  pointer-events: none;
+}
+
+/* Thin Minimalist Chevron Arrows */
+.arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 10;
+  width: 36px;
+  height: 36px;
+  border: none;
+  background: transparent;
+  color: var(--secondary, #253329);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  padding: 0;
+  transition: transform 0.18s ease, opacity 0.18s ease;
+  opacity: 0.85;
+}
+
+.arrow:hover {
+  opacity: 1;
+  transform: translateY(-50%) scale(1.15);
+}
+
+.arrowPrev {
+  left: 12px;
+}
+
+.arrowNext {
+  right: 12px;
+}
+
+/* Minimalist Capsule Pill Pagination */
+.capsulePagination {
+  position: absolute;
+  bottom: 16px;
+  left: 49%;
+  transform: translateX(-50%);
+  z-index: 10;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 3.5px 7px;
+  border-radius: 9999px;
+  background-color: rgba(90, 95, 90, 0.45);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .slide,
+  .slide .content,
+  .slide .imageWrapper {
+    transition-duration: 0.01ms;
+    transition-delay: 0s;
+    transform: none;
+  }
+}
+
+.dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  border: none;
+  background-color: rgba(255, 255, 255, 0.65);
+  cursor: pointer;
+  padding: 0;
+  transition: all 0.22s ease;
+}
+
+.dotActive {
+  width: 16px;
+  border-radius: 9999px;
+  background-color: #ffffff;
+}
+
+/* Responsive */
+@media (max-width: 900px) {
+  .content {
+    width: 55%;
+    padding: 36px 20px 36px 44px;
+  }
+
+  .imageWrapper {
+    width: 60%;
+  }
+}
+
+@media (max-width: 680px) {
+  .carousel,
+  .track,
+  .slideActive,
+  .skeleton {
+    min-height: 360px;
+  }
+
+  .content {
+    width: 100%;
+    padding: 28px 24px;
+    z-index: 5;
+    background: linear-gradient(
+      to bottom,
+      color-mix(in srgb, var(--carousel-bg, color-mix(in srgb, var(--primary) 7%, #fcfbf7)) 96%, transparent) 0%,
+      color-mix(in srgb, var(--carousel-bg, color-mix(in srgb, var(--primary) 7%, #fcfbf7)) 90%, transparent) 60%,
+      color-mix(in srgb, var(--carousel-bg, color-mix(in srgb, var(--primary) 7%, #fcfbf7)) 55%, transparent) 100%
+    );
+  }
+
+  .imageWrapper {
+    width: 100%;
+    -webkit-mask-image: none;
+    mask-image: none;
+    opacity: 0.35;
+  }
+
+  .title {
+    font-size: 26px;
+    margin-bottom: 10px;
+  }
+
+  .subtitle {
+    font-size: 13px;
+    margin-bottom: 18px;
+  }
+
+  .arrow {
+    display: none;
+  }
+
+  .capsulePagination {
+    bottom: 12px;
+  }
+}

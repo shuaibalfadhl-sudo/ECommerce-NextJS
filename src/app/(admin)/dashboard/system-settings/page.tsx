@@ -16,6 +16,11 @@ type Settings = {
   tagline: string;
   description: string;
   secondaryLogoUrl: string;
+  facebookUrl: string;
+  twitterUrl: string;
+  instagramUrl: string;
+  kakaoTalkUrl: string;
+  address: string;
   currency: string;
   key: string;
   value: string;
@@ -31,6 +36,11 @@ const emptySettings: Settings = {
   tagline: "",
   description: "",
   secondaryLogoUrl: "",
+  facebookUrl: "",
+  twitterUrl: "",
+  instagramUrl: "",
+  kakaoTalkUrl: "",
+  address: "",
   currency: "USD",
   key: "",
   value: "",
@@ -79,7 +89,7 @@ export default function SystemSettingsPage() {
       setIsAuthorized(true);
       const { data, error: loadError } = await supabase
         .from("system_settings")
-        .select("id, site_name, logo_url, primary_color, secondary_color, support_email, contact_number, tagline, description, secondary_logo_url, currency, key, value")
+        .select("id, site_name, logo_url, primary_color, secondary_color, support_email, contact_number, tagline, description, secondary_logo_url, facebook_url, twitter_url, instagram_url, kakao_talk_url, address, currency, key, value")
         .order("updated_at", { ascending: false })
         .limit(1)
         .maybeSingle();
@@ -98,6 +108,11 @@ export default function SystemSettingsPage() {
           tagline: data.tagline ?? "",
           description: data.description ?? "",
           secondaryLogoUrl: data.secondary_logo_url ?? "",
+          facebookUrl: data.facebook_url ?? "",
+          twitterUrl: data.twitter_url ?? "",
+          instagramUrl: data.instagram_url ?? "",
+          kakaoTalkUrl: data.kakao_talk_url ?? "",
+          address: data.address ?? "",
           currency: data.currency ?? "USD",
           key: data.key ?? "",
           value: data.value ?? "",
@@ -277,6 +292,22 @@ export default function SystemSettingsPage() {
       setToast({ message: "Only administrators can manage system settings.", type: "error" });
       return;
     }
+    const socialLinks = [
+      ["Facebook", settings.facebookUrl],
+      ["Twitter/X", settings.twitterUrl],
+      ["Instagram", settings.instagramUrl],
+      ["KakaoTalk", settings.kakaoTalkUrl],
+    ] as const;
+    for (const [label, value] of socialLinks) {
+      if (!value.trim()) continue;
+      try {
+        const url = new URL(value.trim());
+        if (!["http:", "https:"].includes(url.protocol)) throw new Error();
+      } catch {
+        setToast({ message: `${label} link must be a valid http:// or https:// URL.`, type: "error" });
+        return;
+      }
+    }
     setIsSaving(true);
     setToast(null);
 
@@ -326,6 +357,11 @@ export default function SystemSettingsPage() {
       tagline: settings.tagline || null,
       description: settings.description || null,
       secondary_logo_url: secondaryLogoUrl,
+      facebook_url: settings.facebookUrl.trim() || null,
+      twitter_url: settings.twitterUrl.trim() || null,
+      instagram_url: settings.instagramUrl.trim() || null,
+      kakao_talk_url: settings.kakaoTalkUrl.trim() || null,
+      address: settings.address.trim() || null,
       currency: settings.currency || "USD",
       key: settings.key || null,
       value: settings.value || null,
@@ -411,6 +447,34 @@ export default function SystemSettingsPage() {
             <span>Description</span>
             <textarea rows={4} value={settings.description} onChange={(event) => updateField("description", event.target.value)} placeholder="Describe your store or organization" />
           </label>
+          <label className={styles.fullWidth}>
+            <span>Business address</span>
+            <textarea rows={3} value={settings.address} onChange={(event) => updateField("address", event.target.value)} placeholder="Enter your business address" />
+          </label>
+          <div className={`${styles.fullWidth} ${styles.socialLinks}`}>
+            <div className={styles.sectionHeading}>
+              <h4>Social links</h4>
+              <p>Optional public links for your business social accounts.</p>
+            </div>
+            <div className={styles.socialGrid}>
+              <label>
+                <span>Facebook</span>
+                <input type="url" value={settings.facebookUrl} onChange={(event) => updateField("facebookUrl", event.target.value)} placeholder="https://facebook.com/your-page" />
+              </label>
+              <label>
+                <span>Twitter/X</span>
+                <input type="url" value={settings.twitterUrl} onChange={(event) => updateField("twitterUrl", event.target.value)} placeholder="https://x.com/your-account" />
+              </label>
+              <label>
+                <span>Instagram</span>
+                <input type="url" value={settings.instagramUrl} onChange={(event) => updateField("instagramUrl", event.target.value)} placeholder="https://instagram.com/your-account" />
+              </label>
+              <label>
+                <span>KakaoTalk</span>
+                <input type="url" value={settings.kakaoTalkUrl} onChange={(event) => updateField("kakaoTalkUrl", event.target.value)} placeholder="https://open.kakao.com/..." />
+              </label>
+            </div>
+          </div>
           <div className={`${styles.fullWidth} ${styles.logoRow}`}>
             <label>
               <span>Logo image</span>

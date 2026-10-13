@@ -14,6 +14,7 @@
   bottom: 0;
   left: 0;
   flex-direction: column;
+  overflow-y: auto;
   width: 250px;
   padding: 26px 16px 20px;
   color: #cad4e2;
@@ -363,7 +364,6 @@
 
 @media (max-width: 700px) {
   .sidebar {
-    position: static;
     width: 68px;
     padding: 18px 8px;
   }
@@ -395,7 +395,7 @@
 
   .content {
     width: calc(100% - 68px);
-    margin-left: 0;
+    margin-left: 68px;
   }
 
   .navbar {

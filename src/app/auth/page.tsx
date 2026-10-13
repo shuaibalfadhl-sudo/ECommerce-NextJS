@@ -32,17 +32,16 @@ export default function AuthPage() {
 
       if (!settings.logoUrl) return;
 
-      const icons = document.querySelectorAll<HTMLLinkElement>("link[rel~='icon']");
-      if (icons.length === 0) {
-        const icon = document.createElement("link");
+      let icon = document.querySelector<HTMLLinkElement>("link#app-favicon");
+      if (!icon) {
+        icon = document.createElement("link");
+        icon.id = "app-favicon";
         icon.rel = "icon";
-        icon.href = settings.logoUrl;
         document.head.appendChild(icon);
-        return;
       }
-
-      icons.forEach((icon) => {
-        if (icon.href !== settings.logoUrl) icon.href = settings.logoUrl;
+      if (icon.href !== settings.logoUrl) icon.href = settings.logoUrl;
+      document.querySelectorAll<HTMLLinkElement>("link[rel~='icon']").forEach((existingIcon) => {
+        if (existingIcon.href !== settings.logoUrl) existingIcon.href = settings.logoUrl;
       });
     }
 
@@ -116,10 +115,7 @@ export default function AuthPage() {
             </div>
           )}
           <h1 className={styles.brandTitle}>{settings.siteName}</h1>
-          <h2 className={styles.brandSubtitle}>Project Monitoring System</h2>
-          <p className={styles.brandDescription}>
-            Performance highlights across projects and<br />development activity.
-          </p>
+          {settings.tagline && <h2 className={styles.brandSubtitle}>{settings.tagline}</h2>}
         </div>
         
         <div className={styles.rightPanel}>

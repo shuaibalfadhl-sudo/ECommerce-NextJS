@@ -106,13 +106,6 @@
   color: #d1c9e8;
 }
 
-.brandDescription {
-  font-size: 14px;
-  color: #b0a5d4;
-  line-height: 1.6;
-  max-width: 80%;
-}
-
 .formHeader {
   margin-bottom: 30px;
 }
@@ -276,7 +269,7 @@
     margin-bottom: 16px;
   }
   
-  .brandSubtitle, .brandDescription {
+  .brandSubtitle {
     display: none;
   }
 

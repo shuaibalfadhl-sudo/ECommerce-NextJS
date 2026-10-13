@@ -14,7 +14,7 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: "",
-  description: "Project Monitoring System",
+  description: "",
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {

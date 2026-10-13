@@ -184,6 +184,41 @@
   grid-column: 1 / -1;
 }
 
+.socialLinks {
+  border: 1px solid #edf0f4;
+  border-radius: 8px;
+  padding: 18px;
+  background: #fcfdfe;
+}
+
+.sectionHeading h4 {
+  color: #273a52;
+  font-size: 14px;
+}
+
+.sectionHeading p {
+  margin-top: 5px;
+  color: #718096;
+  font-size: 11px;
+  font-weight: 400;
+}
+
+.socialGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 19px 20px;
+  margin-top: 17px;
+}
+
+.socialGrid label {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+  color: #425267;
+  font-size: 12px;
+  font-weight: 600;
+}
+
 .logoRow {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -444,6 +479,10 @@
   }
 
   .logoRow {
+    grid-template-columns: 1fr;
+  }
+
+  .socialGrid {
     grid-template-columns: 1fr;
   }
 
